@@ -1,0 +1,5 @@
+csrf:
+  required_headers:
+    - X-Apollo-Operation-Name
+    - Apollo-Require-Preflight
+    - Some-Special-Header

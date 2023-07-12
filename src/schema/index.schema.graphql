@@ -1,0 +1,22 @@
+enum Labels {
+  Player
+  Coach
+  Team
+}
+
+enum Relations {
+  PLAYS_FOR
+  COACHES
+  MANAGES
+}
+
+type FileType {
+  fieldname: String!
+  originalname: String!
+  encoding: String!
+  mimetype: String!
+  destination: String!
+  filename: String!
+  path: String!
+  size: Int!
+}

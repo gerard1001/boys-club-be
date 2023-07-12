@@ -1,0 +1,64 @@
+type Person {
+  id: ID!
+  name: String!
+  email: String!
+  password: String!
+  age: Int!
+  height: Float
+  image: String
+}
+
+input PersonInput {
+  name: String
+  age: Int
+  email: String!
+  password: String!
+  height: Float
+  team: String
+  salary: Int
+  image: String
+}
+
+input LoginInput {
+  email: String!
+  password: String!
+}
+
+interface JwtPayload {
+  id: ID
+  email: String
+  labels: [String]
+}
+
+type LoginResult {
+  message: String
+  token: String
+}
+
+input PersonTeamInput {
+  personId: String!
+  teamId: String!
+  salary: Int
+}
+
+type ResponseSingleUpload {
+  url: String
+}
+
+scalar Upload
+
+type Query {
+  welcomeMsg: String
+  getPerson(id: ID!): Person
+  getCoaches: [Person]
+}
+
+type Mutation {
+  createPlayer(personInput: PersonInput!): Person!
+  updatePlayer(id: ID!, personInput: PersonInput!): Person!
+  createCoach(personInput: PersonInput!): Person!
+  updatePlayerTeam(personTeamInput: PersonTeamInput!): Boolean
+  deletePerson(id: ID!): Boolean
+  uploadSingleFiles(file: Upload!): ResponseSingleUpload
+  loginUser(loginInput: LoginInput): LoginResult
+}

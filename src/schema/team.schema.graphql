@@ -1,0 +1,32 @@
+type Team {
+  id: ID!
+  name: String!
+  city: String!
+}
+
+input TeamInput {
+  name: String!
+  city: String!
+}
+
+input DateScore {
+  date: String
+  score: String
+}
+
+input TeamOpponent {
+  teamId: String!
+  opponentId: String!
+  dateScore: DateScore
+}
+
+type Query {
+  getTeam(id: ID!): Team
+  getTeams: [Team]
+  getPlayersInTeam(id: ID!): [Person]
+}
+
+type Mutation {
+  createTeam(teamInput: TeamInput!): Team!
+  setTeamPlayedAgainst(teamOpponent: TeamOpponent): Boolean
+}

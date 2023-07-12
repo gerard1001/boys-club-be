@@ -1,0 +1,1 @@
+const updateUserQuery = MATCH (n) RETURN n
