@@ -4,12 +4,17 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloServerPluginLandingPageLocalDefault } from '@apollo/server/plugin/landingPage/default';
 import { ApolloDriverConfig, ApolloDriver } from '@nestjs/apollo';
 import { AppResolver } from './app.resolver';
-import { PersonModule } from './person/person.module';
+// import { PersonModule } from './person/person.module';
 import { Neo4jModule } from './db/neo4j.module';
-import { TeamModule } from './team/team.module';
 import { AuthModule } from './auth/auth.module';
 import { GlobalClass } from './helpers/global.class';
-import { PersonController } from './person/person.controller';
+import { UserModule } from './common/user/user.module';
+import { TeamModule } from './common/team/team.module';
+import { MatchModule } from './common/match/match.module';
+import { LeagueModule } from './common/league/league.module';
+import { SeasonModule } from './common/season/season.module';
+import { StadiumModule } from './common/stadium/stadium.module';
+import { GoalModule } from './common/goal/goal.module';
 
 @Module({
   imports: [
@@ -25,10 +30,15 @@ import { PersonController } from './person/person.controller';
     }),
     Neo4jModule.forRootAsync(),
     AuthModule,
-    PersonModule,
+    // PersonModule,
     TeamModule,
+    UserModule,
+    MatchModule,
+    LeagueModule,
+    SeasonModule,
+    StadiumModule,
+    GoalModule,
   ],
-  controllers: [PersonController],
   providers: [AppResolver, GlobalClass],
   exports: [GlobalClass],
 })

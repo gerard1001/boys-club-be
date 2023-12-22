@@ -2,11 +2,11 @@ import { Module, forwardRef } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { JwtModule, JwtModuleOptions } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
-import { PersonModule } from 'src/person/person.module';
 import { AuthService } from './auth.service';
 import { AuthResolver } from './auth.resolver';
-import { TeamModule } from 'src/team/team.module';
+import { TeamModule } from 'src/common/team/team.module';
 import { GlobalContext } from 'src/helpers/global.context';
+import { UserModule } from 'src/common/user/user.module';
 
 @Module({
   imports: [
@@ -31,7 +31,7 @@ import { GlobalContext } from 'src/helpers/global.context';
       inject: [ConfigService],
     }),
     forwardRef(() => TeamModule),
-    forwardRef(() => PersonModule),
+    forwardRef(() => UserModule),
     ConfigModule,
   ],
   providers: [AuthService, AuthResolver, GlobalContext, Map],

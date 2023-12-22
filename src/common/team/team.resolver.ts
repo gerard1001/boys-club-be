@@ -1,5 +1,5 @@
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
-import { Team, TeamInput, TeamOpponent } from 'src/schema/graphql';
+import { Team, TeamInput } from 'src/schema/graphql';
 import { TeamService } from './team.service';
 import { UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
@@ -16,12 +16,12 @@ export class TeamResolver {
     return await this.teamService.createTeam(teamInput);
   }
 
-  @Mutation()
-  async setTeamPlayedAgainst(
-    @Args('teamOpponent') teamOpponent: TeamOpponent,
-  ): Promise<boolean> {
-    return await this.teamService.setTeamPlayedAgainst(teamOpponent);
-  }
+  // @Mutation()
+  // async setTeamPlayedAgainst(
+  //   @Args('teamOpponent') teamOpponent: TeamOpponent,
+  // ): Promise<boolean> {
+  //   return await this.teamService.setTeamPlayedAgainst(teamOpponent);
+  // }
 
   @Query()
   async getTeam(@Args('id') id: number): Promise<Team> {

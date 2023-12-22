@@ -1,0 +1,43 @@
+type User {
+  id: ID!
+  fullName: String!
+  userName: String!
+  password: String!
+  age: Int!
+  height: Float
+  image: String
+}
+
+input UserInput {
+  fullName: String
+  userName: String!
+  age: Int
+  password: String!
+  height: Float
+  team: String
+  salary: Int
+  image: String
+}
+
+input LoginInput {
+  userName: String!
+  password: String!
+}
+
+type LoginResult {
+  message: String
+  token: String
+}
+
+type Query {
+  welcomeMsg: String
+  getUser(id: ID!): User
+  getCoaches: [User]
+}
+
+type Mutation {
+  createUser(userInput: UserInput!): User!
+  updateUser(id: ID!, userInput: UserInput!): User!
+  deleteUser(id: ID!): Boolean
+  loginUser(loginInput: LoginInput): LoginResult
+}

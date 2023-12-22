@@ -1,0 +1,21 @@
+type Team {
+  id: ID!
+  name: String!
+  country: String!
+}
+
+input TeamInput {
+  name: String!
+  country: String!
+  coach: String
+}
+
+type Query {
+  getTeam(id: ID!): Team
+  getTeams: [Team]
+  getPlayersInTeam(id: ID!): [User]
+}
+
+type Mutation {
+  createTeam(teamInput: TeamInput!): Team!
+}

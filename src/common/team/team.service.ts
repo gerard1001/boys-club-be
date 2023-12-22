@@ -1,19 +1,19 @@
 import { Injectable } from '@nestjs/common';
 import { QueryRepository } from 'src/db/query.repository';
-import { Team, TeamInput, TeamOpponent } from 'src/schema/graphql';
+import { Team, TeamInput } from 'src/schema/graphql';
 
 @Injectable()
 export class TeamService {
   constructor(private readonly queryRepository: QueryRepository) {}
 
   async createTeam(teamInput: TeamInput): Promise<Team> {
-    const { name, city } = teamInput;
+    const { name, country, coach } = teamInput;
 
     const team = await this.queryRepository
       .initQuery()
       .raw(
         `
-        CREATE (team:Team {name: "${name}", city: "${city}"})
+        CREATE (team:Team {name: "${name}", country: "${country}"})
         RETURN team
     `,
       )
@@ -84,26 +84,26 @@ export class TeamService {
     }
   }
 
-  async setTeamPlayedAgainst(teamOpponent: TeamOpponent): Promise<boolean> {
-    const {
-      opponentId,
-      teamId,
-      dateScore: { date, score },
-    } = teamOpponent;
-    const newTeams = await this.queryRepository
-      .initQuery()
-      .raw(
-        `
-        MATCH (team:Team) WHERE ID(team) = ${teamId}
-        MATCH (opponent:Team) WHERE ID(opponent) = ${opponentId}
-        MERGE (team) -[rel:PLAYED_AGAINST]-> (opponent)
-            ON CREATE SET rel.date = "${date}"
-            ON CREATE SET rel.score = "${score}"
-        RETURN rel, team, opponent
-    `,
-      )
-      .run();
+  // async setTeamPlayedAgainst(teamOpponent: TeamOpponent): Promise<boolean> {
+  //   const {
+  //     opponentId,
+  //     teamId,
+  //     dateScore: { date, score },
+  //   } = teamOpponent;
+  //   const newTeams = await this.queryRepository
+  //     .initQuery()
+  //     .raw(
+  //       `
+  //       MATCH (team:Team) WHERE ID(team) = ${teamId}
+  //       MATCH (opponent:Team) WHERE ID(opponent) = ${opponentId}
+  //       MERGE (team) -[rel:PLAYED_AGAINST]-> (opponent)
+  //           ON CREATE SET rel.date = "${date}"
+  //           ON CREATE SET rel.score = "${score}"
+  //       RETURN rel, team, opponent
+  //   `,
+  //     )
+  //     .run();
 
-    return true;
-  }
+  //   return true;
+  // }
 }

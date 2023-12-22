@@ -1,0 +1,1 @@
+for a soccer league database using neo4j you can model the data with various nodes and relationships to represent the entities and connections in the system  here is a suggested structure 

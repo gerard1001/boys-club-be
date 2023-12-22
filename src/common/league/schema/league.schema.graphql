@@ -1,0 +1,21 @@
+type League {
+  id: ID!
+  name: String!
+  start_date: String!
+  end_date: String!
+}
+
+input LeagueInput {
+  name: String!
+  start_date: String!
+  end_date: String!
+}
+
+type Query {
+  getLeague(id: ID!): Team
+  getLegues: [Team]
+}
+
+type Mutation {
+  createLeague(leagueInput: LeagueInput!): League!
+}

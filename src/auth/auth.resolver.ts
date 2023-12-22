@@ -4,13 +4,13 @@ import {
   NotFoundException,
 } from '@nestjs/common/exceptions';
 import { LoginInput, LoginResult } from 'src/schema/graphql';
-import { PersonService } from 'src/person/person.service';
 import { AuthService } from './auth.service';
+import { UserService } from 'src/common/user/user.service';
 
 @Resolver()
 export class AuthResolver {
   constructor(
-    private personService: PersonService,
+    private personService: UserService,
     private authService: AuthService,
   ) {}
 
@@ -18,8 +18,8 @@ export class AuthResolver {
   async loginUser(
     @Args('loginInput') loginInput: LoginInput,
   ): Promise<LoginResult> {
-    const { email, password } = loginInput;
-    const user = await this.personService.getPlayerByEmail(email);
+    const { userName, password } = loginInput;
+    const user = await this.personService.getUserByUserName(userName);
     const isRealPwd = await this.authService.comparePassword(
       password,
       user?.password,

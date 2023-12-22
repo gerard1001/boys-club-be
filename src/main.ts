@@ -1,40 +1,16 @@
-import { NestFactory } from '@nestjs/core';
+import { NestApplication, NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import { GlobalClass } from './helpers/global.class';
-import { NestExpressApplication } from '@nestjs/platform-express/interfaces';
-import multer from 'multer';
-import * as path from 'path';
+import { ConfigService } from '@nestjs/config';
+import { Logger } from '@nestjs/common';
 
 async function bootstrap() {
-  const app = await NestFactory.create<NestExpressApplication>(AppModule);
-  app.get(GlobalClass);
-  // app.useStaticAssets(path.join(__dirname, '../uploads/images'));
+  const app: NestApplication = await NestFactory.create(AppModule);
+  const configService = app.get(ConfigService);
+  const port = configService.get('PORT');
+  const logger = new Logger();
 
-  // const storage = multer.diskStorage({
-  //   destination: './upload/images',
-  //   filename: (req, file, cb) => {
-  //     return cb(
-  //       null,
-  //       `${file.fieldname}_${Date.now()}${path.extname(file.originalname)}`,
-  //     );
-  //   },
-  // });
+  await app.listen(port);
 
-  // const upload = multer({
-  //   storage: storage,
-  //   limits: {
-  //     fileSize: 10,
-  //   },
-  // });
-
-  // app.use('/profile', express.static('upload/images'));
-  // app.post('/upload', upload.single('profile'), (req, res) => {
-  //   res.json({
-  //     success: 1,
-  //     profile_url: `http://localhost:4000/profile/${req.file.filename}`,
-  //   });
-  // });
-
-  await app.listen(4000);
+  logger.verbose(`🍻🍻🍻 App running on: http://localhost:${port} 🍻🍻🍻\n`);
 }
 bootstrap();
