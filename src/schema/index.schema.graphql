@@ -14,3 +14,11 @@ enum Relations {
   BELONGS_TO
   COACHES
 }
+
+scalar JSON
+
+type TResponse {
+  statusCode: Int!
+  message: String!
+  data: JSON
+}

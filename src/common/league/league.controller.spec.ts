@@ -1,5 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { LeagueController } from './league.controller';
+import { LeagueController } from './league.resolver';
 
 describe('LeagueController', () => {
   let controller: LeagueController;

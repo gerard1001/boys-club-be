@@ -71,7 +71,7 @@ export class UserService {
     }
   }
 
-  async getUserByUserName(userName: string): Promise<any> {
+  async getUserByUserName(userName: string): Promise<User> {
     try {
       const user = await this.queryRepository
         .initQuery()
@@ -85,7 +85,7 @@ export class UserService {
 
       if (user?.length > 0) {
         const {
-          person: { identity, properties, labels },
+          user: { identity, properties, labels },
         } = user[0];
 
         return {

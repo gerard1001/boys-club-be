@@ -7,7 +7,7 @@ import {
 } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
-import { LoginInput, LoginResult } from 'src/schema/graphql';
+import { LoginInput, TResponse } from 'src/schema/graphql';
 import * as bcrypt from 'bcrypt';
 import { GlobalClass } from 'src/helpers/global.class';
 import { GlobalContext } from 'src/helpers/global.context';

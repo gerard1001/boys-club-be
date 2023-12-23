@@ -3,23 +3,25 @@ import {
   UnauthorizedException,
   NotFoundException,
 } from '@nestjs/common/exceptions';
-import { LoginInput, LoginResult } from 'src/schema/graphql';
+import { LoginInput, TResponse } from 'src/schema/graphql';
 import { AuthService } from './auth.service';
 import { UserService } from 'src/common/user/user.service';
+import { HttpStatus } from '@nestjs/common';
 
 @Resolver()
 export class AuthResolver {
   constructor(
-    private personService: UserService,
+    private userService: UserService,
     private authService: AuthService,
   ) {}
 
   @Mutation()
   async loginUser(
     @Args('loginInput') loginInput: LoginInput,
-  ): Promise<LoginResult> {
+  ): Promise<TResponse> {
     const { userName, password } = loginInput;
-    const user = await this.personService.getUserByUserName(userName);
+    const user = await this.userService.getUserByUserName(userName);
+
     const isRealPwd = await this.authService.comparePassword(
       password,
       user?.password,
@@ -34,15 +36,19 @@ export class AuthResolver {
 
     const payload = {
       id: user?.id,
-      email: user?.email,
+      userName: user?.userName,
       labels: user?.labels,
     };
 
     const token = await this.authService.generateJwt(payload);
 
     return {
+      statusCode: HttpStatus.OK,
       message: 'You have successfully logged in',
-      token,
+      data: {
+        user: payload,
+        token,
+      },
     };
   }
 }

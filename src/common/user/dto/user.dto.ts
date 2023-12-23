@@ -1,27 +1,33 @@
-import { IsNotEmpty } from 'class-validator';
+import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
 
 export class UserDto {
   @IsNotEmpty()
-  fullName: string;
+  @IsString()
+  readonly fullName: string;
 
   @IsNotEmpty()
-  userName: string;
+  @IsString()
+  readonly userName: string;
 
   @IsNotEmpty()
+  @IsString()
   readonly password: string;
 
   @IsNotEmpty()
+  @IsNumber()
   readonly height: number;
 
   @IsNotEmpty()
+  @IsNumber()
   readonly age: number;
 
   @IsNotEmpty()
+  @IsString()
   readonly image: string;
 
   @IsNotEmpty()
   readonly team: string;
-
+  @IsString()
   @IsNotEmpty()
   readonly salary: number;
 

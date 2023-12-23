@@ -6,6 +6,7 @@ type User {
   age: Int!
   height: Float
   image: String
+  labels: [String]
 }
 
 input UserInput {
@@ -24,11 +25,6 @@ input LoginInput {
   password: String!
 }
 
-type LoginResult {
-  message: String
-  token: String
-}
-
 type Query {
   welcomeMsg: String
   getUser(id: ID!): User
@@ -39,5 +35,5 @@ type Mutation {
   createUser(userInput: UserInput!): User!
   updateUser(id: ID!, userInput: UserInput!): User!
   deleteUser(id: ID!): Boolean
-  loginUser(loginInput: LoginInput): LoginResult
+  loginUser(loginInput: LoginInput): TResponse!
 }

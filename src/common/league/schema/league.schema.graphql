@@ -12,8 +12,8 @@ input LeagueInput {
 }
 
 type Query {
-  getLeague(id: ID!): Team
-  getLegues: [Team]
+  getLeague(id: ID!): League
+  getLeagues: [League]
 }
 
 type Mutation {

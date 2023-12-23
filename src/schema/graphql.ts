@@ -61,9 +61,9 @@ export class League {
 }
 
 export abstract class IQuery {
-    abstract getLeague(id: string): Nullable<Team> | Promise<Nullable<Team>>;
+    abstract getLeague(id: string): Nullable<League> | Promise<Nullable<League>>;
 
-    abstract getLegues(): Nullable<Nullable<Team>[]> | Promise<Nullable<Nullable<Team>[]>>;
+    abstract getLeagues(): Nullable<Nullable<League>[]> | Promise<Nullable<Nullable<League>[]>>;
 
     abstract getTeam(id: string): Nullable<Team> | Promise<Nullable<Team>>;
 
@@ -89,7 +89,7 @@ export abstract class IMutation {
 
     abstract deleteUser(id: string): Nullable<boolean> | Promise<Nullable<boolean>>;
 
-    abstract loginUser(loginInput?: Nullable<LoginInput>): Nullable<LoginResult> | Promise<Nullable<LoginResult>>;
+    abstract loginUser(loginInput?: Nullable<LoginInput>): TResponse | Promise<TResponse>;
 }
 
 export class Team {
@@ -106,11 +106,14 @@ export class User {
     age: number;
     height?: Nullable<number>;
     image?: Nullable<string>;
+    labels?: Nullable<Nullable<string>[]>;
 }
 
-export class LoginResult {
-    message?: Nullable<string>;
-    token?: Nullable<string>;
+export class TResponse {
+    statusCode: number;
+    message: string;
+    data?: Nullable<JSON>;
 }
 
+export type JSON = any;
 type Nullable<T> = T | null;
